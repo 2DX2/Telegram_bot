@@ -9,7 +9,7 @@ BOT_TOKEN = "8729082010:AAERl8fn28B7uEKp8NWq5bw0DtsTMa6iwko"
 
 API_WEATHER_KEY = "b4406ca484ba7dd95280a03c2125959b"
 
-bot_name = "Бот\\-Валера"
+bot_name = "Бот"
 
 keyboards = {"start": [["Погода 🌤️"], ["Калькулятор 📱"]],
              "calculator": [["Назад"]],
@@ -76,9 +76,10 @@ async def main_massage_handler(update, context):
 async def calculator(update, context):
     if update.message.text != "Назад":
         try:
-            await update.message.reply_text(f"{update.message.text} = {eval(update.message.text)}", reply_markup=markups["calculator"])
+            await update.message.reply_text(f"{update.message.text} = {eval(update.message.text.replace('÷', '/'))}", reply_markup=markups["calculator"])
         except:
             await update.message.reply_text("Неверный ввод", reply_markup=markups["calculator"])
+
         await update.message.reply_text("Введите пример:", reply_markup=markups["calculator"])
     else:
         await main_menu_output(update, context)
@@ -142,7 +143,7 @@ reply_markup=markups["weather"], parse_mode=ParseMode.HTML)
 
 
 async def help(update, context):
-    await update.message.reply_text("Я пока не умею помогать... Я только ваше эхо.")
+    await update.message.reply_text("Я пока не умею помогать...")
 
 async def stop(update, context):
     await update.message.reply_text("Всего доброго!")
