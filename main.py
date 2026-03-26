@@ -510,12 +510,12 @@ async def send_reminder(context):
 ''', parse_mode=ParseMode.HTML)
             else:
                 await context.bot.send_message(chat_id=context.job.chat_id, text=f'''
-<b>⏰ До дедлайна осталось {context.job.data["time"].days} дней, {context.job.data["time"].seconds // 3600} час(ов), {context.job.data["time"].seconds // 60 % 60} минут(ы)!</b>
+<b>⏰ До дедлайна осталось {context.job.data["time"].days} дней, {context.job.data['time'].seconds // 3600} час(ов), {context.job.data['time'].seconds // 60 % 60} минут(ы)!</b>
 
 Если задача уже выполнена, её можно отметить выполненной.
 ''', parse_mode=ParseMode.HTML)
         elif context.job.data["status"] == "overdue":
-            await context.bot.send_message(chat_id=context.job.chat_id, text=f"Это просроченное задание {task["name"]}")
+            await context.bot.send_message(chat_id=context.job.chat_id, text=f"Это просроченное задание {task['name']}")
 
 
 async def set_reminder_task(context, update, task_id, delta_times):
@@ -545,21 +545,6 @@ async def set_reminder_task(context, update, task_id, delta_times):
                     "status": "active",
                 },
         )
-
-    '''
-    else:
-        context.job_queue.run_once(
-            callback=send_reminder,
-            name=f"{user_id}.{task_id}",
-            chat_id=chat_id,
-            when=when_time,
-            data={
-                "task_id": task_id,
-                "user_id": user_id,
-                "time": -delta_time,
-                "status": "overdue",
-            },
-        )'''
 
 
 conv_add_task_handler = ConversationHandler(
