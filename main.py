@@ -228,31 +228,6 @@ async def date_add_task(update, context):
             context=context,
             update=update,
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             task_id=new_task["id"],
             delta_times=[
                 timedelta(
@@ -339,7 +314,7 @@ async def choice_task_my_tasks(update, context):
         return ConversationHandler.END
     elif query.data.split("|", 1)[0] == "reminder_off":
         if task_from_file(update.effective_user.id, int(query.data.split("|", 1)[1]))["notification"]:
-            jobs = context.job_queue.get_jobs_by_name(f"{update.effective_user.id}.{query.data.split("|", 1)[1]}")
+            jobs = context.job_queue.get_jobs_by_name(f"{update.effective_user.id}.{query.data.split('|', 1)[1]}")
 
             if not jobs:
                 pass
